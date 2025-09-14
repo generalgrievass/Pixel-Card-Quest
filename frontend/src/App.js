@@ -187,6 +187,8 @@ const GameUI = () => {
   const loadInitialCards = async () => {
     setIsLoading(true);
     try {
+      console.log('Starting to load initial cards...');
+      
       // First try to get existing cards
       let cards = await fetchCards();
       console.log('Fetched cards:', cards.length);
@@ -202,6 +204,10 @@ const GameUI = () => {
         if (newCard) {
           availableCards.push(newCard);
           console.log('Generated new card:', newCard.id);
+        } else {
+          console.error('Failed to generate new card');
+          setIsLoading(false);
+          return;
         }
       }
       
@@ -214,20 +220,23 @@ const GameUI = () => {
         // Load next card
         if (availableCards.length > 1) {
           setNextCard(availableCards[1]);
+          console.log('Set next card from queue:', availableCards[1].id);
         } else {
+          console.log('Generating next card...');
           const newCard = await generateNewCard();
-          setNextCard(newCard);
           if (newCard) {
+            setNextCard(newCard);
             console.log('Generated next card:', newCard.id);
           }
         }
       } else {
-        console.log('No cards available and failed to generate new card');
+        console.error('No cards available and failed to generate any');
       }
       
     } catch (error) {
       console.error('Error loading initial cards:', error);
     } finally {
+      console.log('Finished loading cards, setting loading to false');
       setIsLoading(false);
     }
   };
