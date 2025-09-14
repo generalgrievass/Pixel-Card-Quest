@@ -59,7 +59,7 @@ class UserCollection(BaseModel):
     card_id: str
     liked_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
-# Pixel art prompts for female feet
+# Pixel art prompts for female feet with variety of poses
 PIXEL_ART_PROMPTS = [
     "Pixel art of elegant female feet in fantasy sandals, 16-bit style, cute anime aesthetic, soft colors",
     "Retro pixel art female feet with painted toenails, 8-bit game style, colorful and whimsical",
@@ -70,7 +70,22 @@ PIXEL_ART_PROMPTS = [
     "Pixel art of female feet in cozy socks, winter theme, warm colors, cute style",
     "Retro game style pixel art female feet with toe rings, colorful and detailed",
     "Pixel art of female feet in ballet flats, elegant and refined, soft pixel aesthetic",
-    "Cute pixel art female feet with flower decorations, spring theme, cheerful colors"
+    "Cute pixel art female feet with flower decorations, spring theme, cheerful colors",
+    "Pixel art of female feet walking pose, side view, detailed pixel animation style",
+    "Retro pixel art female feet in high heels, glamorous pose, evening theme",
+    "Pixel art of bare female feet on grass, natural outdoor setting, detailed texture",
+    "Cute pixel art female feet in striped socks, playful sitting pose, kawaii style",
+    "Pixel art of female feet in water, splash effects, summer beach aesthetic",
+    "Fantasy pixel art female feet with magical tattoos, mystical glowing effects",
+    "Pixel art of female feet in combat boots, action pose, adventurer theme",
+    "Retro pixel art female feet in vintage shoes, classic 1950s style, elegant pose",
+    "Pixel art of female feet in fuzzy slippers, cozy home setting, warm lighting",
+    "Cute pixel art female feet with glitter nail polish, party theme, sparkly effects",
+    "Pixel art of female feet in dance pose, ballet position, graceful movement",
+    "Fantasy pixel art female feet in fairy shoes, woodland theme, magical sparkles",
+    "Pixel art of female feet in snow boots, winter landscape, detailed snow effects",
+    "Retro pixel art female feet in platform shoes, disco theme, colorful background",
+    "Pixel art of female feet in running shoes, athletic pose, dynamic movement"
 ]
 
 @api_router.get("/")
