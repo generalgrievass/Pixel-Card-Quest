@@ -195,8 +195,6 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Image Generation API Integration"
-    - "Card Management Endpoints"
     - "Card Swiping Mechanism"
   stuck_tasks: []
   test_all: false
