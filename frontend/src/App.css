@@ -147,6 +147,49 @@ body {
   transition: transform 0.1s ease-in-out;
 }
 
+.collection-card {
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.collection-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+}
+
+/* Zoom modal styling */
+.zoom-modal {
+  backdrop-filter: blur(4px);
+}
+
+.zoom-card {
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow: auto;
+}
+
+.zoom-card img {
+  max-width: 100%;
+  max-height: 70vh;
+  object-fit: contain;
+}
+
+/* Zoom animation */
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.zoom-modal > div {
+  animation: zoomIn 0.3s ease-out;
+}
+
 /* Card image container */
 .card-image-container {
   border-style: solid;
