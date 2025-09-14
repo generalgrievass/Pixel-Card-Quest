@@ -56,6 +56,16 @@ const PixelCard = ({ card, onLike, onDislike, isVisible = true }) => {
 };
 
 const CollectionGallery = ({ collection, onBack }) => {
+  const [zoomedCard, setZoomedCard] = useState(null);
+
+  const handleCardClick = (card) => {
+    setZoomedCard(card);
+  };
+
+  const closeZoom = () => {
+    setZoomedCard(null);
+  };
+
   return (
     <div className="collection-view min-h-screen bg-gradient-to-b from-purple-900 via-blue-900 to-indigo-900 p-4">
       <div className="max-w-6xl mx-auto">
@@ -74,7 +84,11 @@ const CollectionGallery = ({ collection, onBack }) => {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {collection.map((card, index) => (
-              <div key={card.id} className="collection-card bg-gradient-to-b from-pink-200 to-pink-300 border-4 border-pink-600 rounded-lg p-4 shadow-lg">
+              <div 
+                key={card.id} 
+                className="collection-card bg-gradient-to-b from-pink-200 to-pink-300 border-4 border-pink-600 rounded-lg p-4 shadow-lg cursor-pointer transform transition-transform hover:scale-105"
+                onClick={() => handleCardClick(card)}
+              >
                 <div className="card-header bg-pink-600 text-white px-3 py-1 mb-3 text-center font-bold border-2 border-pink-800">
                   Collected #{index + 1}
                 </div>
@@ -88,11 +102,52 @@ const CollectionGallery = ({ collection, onBack }) => {
                 <div className="mt-2 text-center">
                   <span className="text-pink-800 text-sm font-semibold">💖 Liked</span>
                 </div>
+                <div className="mt-1 text-center">
+                  <span className="text-pink-600 text-xs">Click to zoom</span>
+                </div>
               </div>
             ))}
           </div>
         )}
       </div>
+
+      {/* Zoom Modal */}
+      {zoomedCard && (
+        <div 
+          className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 p-4"
+          onClick={closeZoom}
+        >
+          <div className="max-w-4xl max-h-full bg-gradient-to-b from-pink-200 to-pink-300 border-4 border-pink-600 rounded-lg p-6 shadow-2xl relative">
+            <button 
+              className="absolute top-2 right-2 text-pink-800 hover:text-pink-900 text-2xl font-bold"
+              onClick={closeZoom}
+            >
+              ✕
+            </button>
+            
+            <div className="card-header bg-pink-600 text-white px-4 py-2 mb-4 text-center font-bold border-2 border-pink-800 rounded">
+              Zoomed View - {zoomedCard.prompt}
+            </div>
+            
+            <div className="card-image-container bg-white border-2 border-gray-400 p-4 rounded">
+              <img 
+                src={`data:image/png;base64,${zoomedCard.image_base64}`}
+                alt="Pixel Art Zoomed"
+                className="w-full max-w-2xl h-auto object-contain pixel-art mx-auto"
+              />
+            </div>
+            
+            <div className="mt-4 text-center">
+              <p className="text-pink-800 text-sm mb-2">
+                <strong>Created:</strong> {new Date(zoomedCard.created_at).toLocaleDateString()}
+              </p>
+              <div className="flex justify-center space-x-4">
+                <span className="text-pink-800 font-semibold">💖 In Your Collection</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
