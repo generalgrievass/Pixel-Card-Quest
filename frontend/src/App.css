@@ -1,34 +1,226 @@
-.App-logo {
-    height: 40vmin;
-    pointer-events: none;
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* Global pixel art styles */
+body {
+  margin: 0;
+  font-family: 'Courier New', monospace;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-    .App-logo {
-        animation: App-logo-spin infinite 20s linear;
-    }
+/* Pixel art styling */
+.pixel-art {
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
 }
 
-.App-header {
-    background-color: #0f0f10;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
+/* Pixel text styling */
+.pixel-text {
+  font-family: 'Courier New', monospace;
+  text-shadow: 2px 2px 0px rgba(0,0,0,0.8);
+  letter-spacing: 1px;
 }
 
-.App-link {
-    color: #61dafb;
+/* Pixel button styling */
+.pixel-button {
+  font-family: 'Courier New', monospace;
+  border-style: solid;
+  border-width: 2px;
+  image-rendering: pixelated;
+  font-weight: bold;
+  text-shadow: 1px 1px 0px rgba(0,0,0,0.5);
+  transform-style: preserve-3d;
 }
 
-@keyframes App-logo-spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+.pixel-button:hover {
+  transform: translateY(-1px);
+}
+
+.pixel-button:active {
+  transform: translateY(1px);
+}
+
+/* Card styling with pixel borders */
+.pixel-card {
+  border-style: solid;
+  border-width: 4px;
+  image-rendering: pixelated;
+  position: relative;
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+}
+
+.pixel-card::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, #fbbf24, #f59e0b, #d97706, #92400e);
+  z-index: -1;
+  border-radius: 8px;
+}
+
+.collection-card {
+  border-style: solid;
+  border-width: 4px;
+  image-rendering: pixelated;
+  background: linear-gradient(135deg, #f9a8d4 0%, #ec4899 100%);
+}
+
+/* Game header styling */
+.game-header {
+  border-style: solid;
+  border-width: 4px;
+  background: linear-gradient(45deg, #fbbf24, #f59e0b);
+  position: relative;
+}
+
+.game-header::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, #fbbf24, #f59e0b, #d97706);
+  z-index: -1;
+  border-radius: 8px;
+}
+
+/* Stats bar */
+.stats-bar {
+  border-style: solid;
+  border-width: 2px;
+  background: linear-gradient(45deg, #3b82f6, #1d4ed8);
+}
+
+/* Loading spinner */
+.pixel-spinner {
+  width: 40px;
+  height: 40px;
+  margin: 0 auto;
+  background: linear-gradient(45deg, #fbbf24, #f59e0b, #d97706, #92400e);
+  border: 2px solid #fbbf24;
+  animation: pixelSpin 1s linear infinite;
+}
+
+@keyframes pixelSpin {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(90deg); }
+  50% { transform: rotate(180deg); }
+  75% { transform: rotate(270deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Pixel stars background animation */
+.pixel-stars {
+  background-image: 
+    radial-gradient(2px 2px at 20px 30px, #fff, transparent),
+    radial-gradient(2px 2px at 40px 70px, #fff, transparent),
+    radial-gradient(1px 1px at 90px 40px, #fff, transparent),
+    radial-gradient(1px 1px at 130px 80px, #fff, transparent),
+    radial-gradient(2px 2px at 160px 30px, #fff, transparent);
+  background-repeat: repeat;
+  background-size: 200px 100px;
+  animation: pixelStars 20s linear infinite;
+  opacity: 0.6;
+}
+
+@keyframes pixelStars {
+  from { transform: translateY(0px); }
+  to { transform: translateY(-100px); }
+}
+
+/* Hover effects for cards */
+.pixel-card:hover {
+  transform: translateY(-2px);
+  transition: transform 0.1s ease-in-out;
+}
+
+.collection-card:hover {
+  transform: scale(1.02);
+  transition: transform 0.1s ease-in-out;
+}
+
+/* Card image container */
+.card-image-container {
+  border-style: solid;
+  border-width: 2px;
+  background: #ffffff;
+  padding: 8px;
+}
+
+/* Controls help styling */
+.controls-help {
+  border-style: solid;
+  border-width: 2px;
+  background: rgba(31, 41, 55, 0.8);
+  backdrop-filter: blur(4px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .pixel-text {
+    font-size: 1.5rem;
+  }
+  
+  .pixel-card {
+    max-width: 280px;
+  }
+  
+  .game-header {
+    padding: 1rem;
+  }
+  
+  .game-header h1 {
+    font-size: 1.5rem;
+  }
+}
+
+/* Additional MapleStory-inspired elements */
+.game-container {
+  position: relative;
+  background: linear-gradient(180deg, 
+    #312e81 0%, 
+    #553c9a 25%, 
+    #7c3aed 50%, 
+    #a855f7 75%, 
+    #c084fc 100%);
+}
+
+/* Card flip animation */
+.card-flip {
+  animation: cardFlip 0.6s ease-in-out;
+}
+
+@keyframes cardFlip {
+  0% { transform: rotateY(0deg); }
+  50% { transform: rotateY(90deg); }
+  100% { transform: rotateY(0deg); }
+}
+
+/* Like/dislike feedback animations */
+.like-animation {
+  animation: likeEffect 0.8s ease-out;
+}
+
+.dislike-animation {
+  animation: dislikeEffect 0.8s ease-out;
+}
+
+@keyframes likeEffect {
+  0% { transform: scale(1) rotate(0deg); }
+  50% { transform: scale(1.1) rotate(5deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+@keyframes dislikeEffect {
+  0% { transform: scale(1) rotate(0deg); }
+  50% { transform: scale(0.95) rotate(-5deg); }
+  100% { transform: scale(1) rotate(0deg); }
 }
