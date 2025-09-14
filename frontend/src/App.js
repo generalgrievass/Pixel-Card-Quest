@@ -156,7 +156,7 @@ const GameUI = () => {
   const [currentCard, setCurrentCard] = useState(null);
   const [nextCard, setNextCard] = useState(null);
   const [collection, setCollection] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true); // Start with loading true
   const [showCollection, setShowCollection] = useState(false);
   const [cardQueue, setCardQueue] = useState([]);
   const [stats, setStats] = useState({ total: 0, liked: 0 });
@@ -189,28 +189,40 @@ const GameUI = () => {
     try {
       // First try to get existing cards
       let cards = await fetchCards();
+      console.log('Fetched cards:', cards.length);
       
-      // If we don't have enough cards, generate some
-      if (cards.length < 5) {
+      // Filter out already liked cards
+      const availableCards = cards.filter(card => !card.is_liked);
+      console.log('Available cards (not liked):', availableCards.length);
+      
+      if (availableCards.length === 0) {
+        // If no available cards, generate a new one
+        console.log('No available cards, generating new one...');
         const newCard = await generateNewCard();
         if (newCard) {
-          cards.unshift(newCard);
+          availableCards.push(newCard);
+          console.log('Generated new card:', newCard.id);
         }
       }
       
-      // Filter out already liked cards and set up the queue
-      const availableCards = cards.filter(card => !card.is_liked);
-      setCardQueue(availableCards.slice(1));
+      // Set up the card queue
       if (availableCards.length > 0) {
         setCurrentCard(availableCards[0]);
-      }
-      
-      // Load next card
-      if (availableCards.length > 1) {
-        setNextCard(availableCards[1]);
+        setCardQueue(availableCards.slice(1));
+        console.log('Set current card:', availableCards[0].id);
+        
+        // Load next card
+        if (availableCards.length > 1) {
+          setNextCard(availableCards[1]);
+        } else {
+          const newCard = await generateNewCard();
+          setNextCard(newCard);
+          if (newCard) {
+            console.log('Generated next card:', newCard.id);
+          }
+        }
       } else {
-        const newCard = await generateNewCard();
-        setNextCard(newCard);
+        console.log('No cards available and failed to generate new card');
       }
       
     } catch (error) {
