@@ -298,6 +298,16 @@ const GameUI = () => {
   useEffect(() => {
     loadInitialCards();
     loadCollection();
+    
+    // Add a fallback timeout to prevent infinite loading
+    const loadingTimeout = setTimeout(() => {
+      if (isLoading) {
+        console.warn('Loading timeout reached, forcing loading to stop');
+        setIsLoading(false);
+      }
+    }, 30000); // 30 second timeout
+    
+    return () => clearTimeout(loadingTimeout);
   }, []);
 
   if (showCollection) {
